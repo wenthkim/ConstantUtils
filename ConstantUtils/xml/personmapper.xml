@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  配置命名空间 -->
+<mapper namespace="com.wenthkim.domain.PersonMapper">
+
+	<!-- 结果集与类的映射 -->
+	<resultMap type="com.wenthkim.domain.Person" id="PersonPM">
+		<result property="id" column="ID"/>
+		<result property="age" column="AGE"/>
+		<result property="name" column="NAME"/>
+		<result property="remark" column="REMARK"/>				
+	</resultMap>
+
+	<select id="findmap" resultMap="PersonPM">
+		select * from person
+	</select>
+
+	<!-- 查询  注意Mybatis中有集合中返回值，我们只填 集合中的类型 -->
+	<select id="find" resultType="com.wenthkim.domain.Person">
+		select * from person	
+	</select>
+	
+	<!-- 查询一个 按id查询  parameterMap ibatis时，兼容以前程序 -->
+	<select id="get" parameterType="int" resultType="com.wenthkim.domain.Person">
+		select * from person
+			where id = #{pid}
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.wenthkim.domain.Person">
+		insert into person
+		(id,age,name,remark)
+		values
+		(#{id},#{age},#{name},#{remark})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.wenthkim.domain.Person">
+		update person
+		 set id=#{id},age=#{age},name=#{name},remark=#{remark}
+	</update>
+	
+	<!-- 删除多条数据 LIST集合 -->
+	<delete id="delestList" parameterType="int">
+		delete from person
+		where id in
+		<foreach collection="list" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	
+</mapper>    
+    

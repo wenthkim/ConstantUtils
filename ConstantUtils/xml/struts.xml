@@ -1,0 +1,36 @@
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <!-- struts2的action必须放在一个指定的包空间下定义 -->
+    <package name="default" namespace="/" extends="struts-default">
+    
+        <action name="login">   
+           <result>/pages/test.jsp</result>
+        </action>
+        
+        <action name="testcontext" class="com.wenthkim.service.TestContextAction">
+        	<result name="success">/pages/test.jsp</result>
+        </action>
+        
+        <action name="login-in" class="com.wenthkim.service.UserAction" >
+        
+          <result name="success" type="redirect">/testcontext.action</result>
+      	
+        </action>
+        
+         <action name="login-out" class="com.wenthkim.service.UserAction"
+          method="logout">
+         <result name="success">/pages/test.jsp</result>        
+        </action>
+        
+        <action name="emp-*" class="com.wenthkim.employee.EmpAction" method="{1}">
+        		<result name="{1}">/emylist.jsp</result>
+        </action>
+        
+        <action name="uploadaction" class="com.wenthkim.action.UploadAction">      
+        	<result>/index.jsp</result>
+        </action>
+        
+    </package>
+</struts>
