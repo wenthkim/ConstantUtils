@@ -88,5 +88,11 @@
     </bean>
     <bean id="conversion-service" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
    
+   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <!-- 国际化信息所在的文件名 -->                     
+    <property name="basename" value="messages" />   
+    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->               
+    <property name="useCodeAsDefaultMessage" value="true" />           
+</bean>
    
 </beans>
